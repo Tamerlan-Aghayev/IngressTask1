@@ -1,0 +1,4 @@
+rootProject.name = 'ingress'
+include 'ms1'
+include 'ms2'
+
