@@ -75,10 +75,23 @@ configure(subProjects) {
 		registryCredentials.setEmail("$dockerHubEmail")
 	}
 
-
-
 }
+task updateDockerCompose {
+	dependsOn subProjects.collect { it.tasks.findByName('dockerPush') }
+	doLast {
+		def dockerComposePath = project.rootProject.file('docker-compose.yaml')
+		def dockerComposeContent = dockerComposePath.text
 
+		dockerComposeContent = dockerComposeContent.replaceAll(/\$\{ms1_version_placeholder\}/, project(':ms1').version)
+				.replaceAll(/\$\{ms2_version_placeholder\}/, project(':ms2').version)
+		dockerComposePath.text = dockerComposeContent
+	}
+}
+task runDockerCompose(type: Exec) {
+	dependsOn updateDockerCompose
+
+	commandLine 'docker-compose', 'up', '-d'
+}
 
 
 tasks.named('test') {
