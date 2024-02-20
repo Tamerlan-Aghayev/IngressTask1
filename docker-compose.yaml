@@ -18,7 +18,7 @@ services:
     ports:
       - "8580:8080"
   ms1:
-    image: tamerlanaghaev/ms1:1.0.f94d0ff
+    image: tamerlanaghaev/ms1:1.0.560fd7d
     restart: always
     ports:
       - "9091:8081"
@@ -29,7 +29,7 @@ services:
     depends_on:
       - db
   ms2:
-    image: tamerlanaghaev/ms2:1.0.f94d0ff
+    image: tamerlanaghaev/ms2:1.0.560fd7d
     restart: always
     ports:
       - "9092:8082"
